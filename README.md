@@ -8,7 +8,7 @@ The project contains 6 externaltask-handlers (located in the Handlers-folder). T
 <br>
 The repo also contains the model XML-file camundaCarRental.bpmn. This file can be loading into the modeler and from there deployed to camunda.
 <br>
-<b>Requirements: docker must be installed on your machine.<b>
+<b>Requirements: docker must be installed on your machine.</b>
 <br>
 
 # How to make it go
