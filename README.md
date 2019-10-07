@@ -24,9 +24,15 @@ sudo docker run --name camundaworker --link camunda cphjs284/camundaworker
 NB. The server queries camunda every 10 secs which creates quite a bit of console spam.<br>
 3. Open your camunda modeler and navigate to the camundaCarRental.bpmn in this repo.<br>
 4. Deploy diagram to camunda<br>
-5. open browser and navigate to camunda startpage
+5. open browser and navigate to camunda startpage (credentials: demo/demo)
 ```
-http://localhost:8080/camunda-welcome/index.html (credentials: demo/demo)
+http://localhost:8080/camunda-welcome/index.html 
 ```
-6) navigate to welcomescreen -> cockpit -> Tasklist -> start process and choose CarRental process
-7) Click link "All Tasks", the first tasks in the rentalprocess will be to "query available cars"
+6) navigate to welcomescreen -> Tasklist -> start process and choose CarRental process
+7) Click link "All Tasks", the first tasks in the rentalprocess will be to "query available cars" (the process has not been assigned to any specific user, so you must claim the task before you can move the proccess forward).
+
+# Cleanup
+```
+sudo docker rm -f camundaworker
+sudo docker rm -f camunda
+```
