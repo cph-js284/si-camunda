@@ -21,9 +21,9 @@ sudo docker run -d --name camunda -p 8080:8080 camunda/camunda-bpm-platform:late
 ```
 sudo docker run --name camundaworker --link camunda cphjs284/camundaworker
 ```
-NB. The server queries camunda every 10 secs which creates quite a bit of console spam.
-3) Open your camunda modeler and navigate to the camundaCarRental.bpmn in this repo.
-4) Deploy diagram to camunda
+NB. The server queries camunda every 10 secs which creates quite a bit of console spam.<br>
+3) Open your camunda modeler and navigate to the camundaCarRental.bpmn in this repo.<br>
+4) Deploy diagram to camunda<br>
 5) open browser and navigate to camunda startpage
 ```
 http://localhost:8080/camunda-welcome/index.html (credentials: demo/demo)
