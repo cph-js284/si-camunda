@@ -23,8 +23,10 @@ sudo docker run -d --name camunda -p 8080:8080 camunda/camunda-bpm-platform:late
 sudo docker run --name camundaworker --link camunda cphjs284/camundaworker
 ```
 
-NB. The server queries camunda every 10 secs which creates quite a bit of console spam.<br>
-3) Open your camunda modeler and deploy both the model(camundaCarRental.bpmn) and the rule-engine(DecisionTable1.dmn) to camunda.<br>
+NB. The server queries camunda every 10 secs which creates quite a bit of console spam.
+
+3) Open your camunda modeler and deploy both the model(camundaCarRental.bpmn) and the rule-engine(DecisionTable1.dmn) to camunda.
+
 4) open browser and navigate to camunda startpage (credentials: demo/demo)
 
 ```
