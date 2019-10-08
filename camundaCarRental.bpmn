@@ -105,7 +105,7 @@
     </bpmn:sequenceFlow>
     <bpmn:serviceTask id="Task_0du1av9" name="Confimration email to client" camunda:type="external" camunda:topic="confirmation">
       <bpmn:incoming>SequenceFlow_053ayuf</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0slr9wu</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0pzj69w</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="SequenceFlow_1drbssd" name="payment failure&#10;&#10;" sourceRef="ExclusiveGateway_0es06w1" targetRef="Task_04vc2x5">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${paymentSucces == false}</bpmn:conditionExpression>
@@ -131,15 +131,20 @@
     <bpmn:sequenceFlow id="SequenceFlow_1ir9oa2" name="CC info &#10;not given&#10;" sourceRef="ExclusiveGateway_1izvj6b" targetRef="IntermediateCatchEvent_0amgkia">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${CCinfoGiven == false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_0slr9wu" sourceRef="Task_0du1av9" targetRef="Task_0ljfnuc" />
     <bpmn:userTask id="Task_0ljfnuc" name="Review">
-      <bpmn:incoming>SequenceFlow_0slr9wu</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0i8429n</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_01kjgmr</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:endEvent id="EndEvent_13p41bh">
       <bpmn:incoming>SequenceFlow_01kjgmr</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_01kjgmr" sourceRef="Task_0ljfnuc" targetRef="EndEvent_13p41bh" />
+    <bpmn:sequenceFlow id="SequenceFlow_0pzj69w" sourceRef="Task_0du1av9" targetRef="Task_170f99x" />
+    <bpmn:businessRuleTask id="Task_170f99x" name="Decide Email layout" camunda:resultVariable="EmailLayout" camunda:decisionRef="DecideEmail" camunda:mapDecisionResult="singleEntry">
+      <bpmn:incoming>SequenceFlow_0pzj69w</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0i8429n</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0i8429n" sourceRef="Task_170f99x" targetRef="Task_0ljfnuc" />
     <bpmn:textAnnotation id="TextAnnotation_13260wt">
       <bpmn:text>This process includes notifying the client via email</bpmn:text>
     </bpmn:textAnnotation>
@@ -176,6 +181,14 @@
       <bpmn:text>Mostly put here to see variables set durring process</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_0a91t91" sourceRef="Task_0ljfnuc" targetRef="TextAnnotation_1vzfd5a" />
+    <bpmn:textAnnotation id="TextAnnotation_1i7fqqs">
+      <bpmn:text>CCinfoGiven variable</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0l4qynn" sourceRef="ExclusiveGateway_1izvj6b" targetRef="TextAnnotation_1i7fqqs" />
+    <bpmn:textAnnotation id="TextAnnotation_1sf8nh6">
+      <bpmn:text>yeah...its a decision table for email-layout, big whoop</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1pjnlyz" sourceRef="Task_170f99x" targetRef="TextAnnotation_1sf8nh6" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0tfwzn2">
@@ -342,11 +355,11 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_1sbm6r6_di" bpmnElement="TextAnnotation_1sbm6r6">
-        <dc:Bounds x="630" y="850" width="100" height="68" />
+        <dc:Bounds x="650" y="890" width="100" height="68" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_0h4872c_di" bpmnElement="Association_0h4872c">
-        <di:waypoint x="780" y="855" />
-        <di:waypoint x="730" y="869" />
+        <di:waypoint x="781" y="872" />
+        <di:waypoint x="750" y="891" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_1tucyr6_di" bpmnElement="TextAnnotation_1tucyr6">
         <dc:Bounds x="350" y="220" width="100" height="40" />
@@ -428,10 +441,6 @@
           <dc:Bounds x="997" y="370" width="45" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_0slr9wu_di" bpmnElement="SequenceFlow_0slr9wu">
-        <di:waypoint x="1010" y="960" />
-        <di:waypoint x="1060" y="960" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="UserTask_1rg1wq4_di" bpmnElement="Task_0ljfnuc">
         <dc:Bounds x="1060" y="920" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -443,11 +452,38 @@
         <di:waypoint x="1212" y="960" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_1vzfd5a_di" bpmnElement="TextAnnotation_1vzfd5a">
-        <dc:Bounds x="1160" y="840" width="100" height="68" />
+        <dc:Bounds x="1160" y="820" width="100" height="68" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_0a91t91_di" bpmnElement="Association_0a91t91">
-        <di:waypoint x="1155" y="921" />
-        <di:waypoint x="1170" y="908" />
+        <di:waypoint x="1147" y="920" />
+        <di:waypoint x="1177" y="888" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1i7fqqs_di" bpmnElement="TextAnnotation_1i7fqqs">
+        <dc:Bounds x="1020" y="500" width="100" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0l4qynn_di" bpmnElement="Association_0l4qynn">
+        <di:waypoint x="1022" y="463" />
+        <di:waypoint x="1053" y="500" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0pzj69w_di" bpmnElement="SequenceFlow_0pzj69w">
+        <di:waypoint x="960" y="1000" />
+        <di:waypoint x="960" y="1050" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BusinessRuleTask_0xzlsbn_di" bpmnElement="Task_170f99x">
+        <dc:Bounds x="910" y="1050" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0i8429n_di" bpmnElement="SequenceFlow_0i8429n">
+        <di:waypoint x="1010" y="1090" />
+        <di:waypoint x="1035" y="1090" />
+        <di:waypoint x="1035" y="990" />
+        <di:waypoint x="1060" y="990" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1sf8nh6_di" bpmnElement="TextAnnotation_1sf8nh6">
+        <dc:Bounds x="770" y="1010" width="100" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1pjnlyz_di" bpmnElement="Association_1pjnlyz">
+        <di:waypoint x="910" y="1074" />
+        <di:waypoint x="870" y="1060" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

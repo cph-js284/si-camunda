@@ -18,18 +18,21 @@ The repo also contains the model XML-file camundaCarRental.bpmn. This file can b
 sudo docker run -d --name camunda -p 8080:8080 camunda/camunda-bpm-platform:latest
 ```
 2) Pull and run the image containing the camundaworker from docker hub by executing:
+
 ```
 sudo docker run --name camundaworker --link camunda cphjs284/camundaworker
 ```
+
 NB. The server queries camunda every 10 secs which creates quite a bit of console spam.<br>
-3. Open your camunda modeler and navigate to the camundaCarRental.bpmn in this repo.<br>
-4. Deploy diagram to camunda<br>
-5. open browser and navigate to camunda startpage (credentials: demo/demo)
+3) Open your camunda modeler and deploy both the model(camundaCarRental.bpmn) and the rule-engine(DecisionTable1.dmn) to camunda.<br>
+4) open browser and navigate to camunda startpage (credentials: demo/demo)
+
 ```
 http://localhost:8080/camunda-welcome/index.html 
 ```
-6) navigate to welcomescreen -> Tasklist -> start process and choose CarRental process
-7) Click link "All Tasks", the first tasks in the rentalprocess will be to "query available cars" (the process has not been assigned to any specific user, so you must claim the task before you can move the proccess forward).
+
+5) navigate to welcomescreen -> Tasklist -> start process and choose CarRental process
+6) Click link "All Tasks", the first tasks in the rentalprocess will be to "query available cars" (the process has not been assigned to any specific user, so you must claim the task before you can move the proccess forward).
 
 # Cleanup
 ```

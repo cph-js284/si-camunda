@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_1vwqipo" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.3.5">
+  <decision id="DecideEmail" name="Decision 1">
+    <decisionTable id="decisionTable_1" hitPolicy="FIRST">
+      <input id="input_1" label="type of car" camunda:inputVariable="cartype">
+        <inputExpression id="inputExpression_1" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="output_1" label="type of layout" name="EmailLayout" typeRef="string" />
+      <rule id="DecisionRule_1c769mi">
+        <inputEntry id="UnaryTests_0pih32j">
+          <text>"a", "b"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1to5jpx">
+          <text>"Enjoy your electric car"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1j1dzkf">
+        <inputEntry id="UnaryTests_01u4wcq">
+          <text>"c"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09utnmi">
+          <text>"Choose electric"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_07wygye">
+        <inputEntry id="UnaryTests_0dehb5s">
+          <text>"d"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0npjwdi">
+          <text>"The kids...WHAT ABOUT THE KIDS!!!!"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
